@@ -15,7 +15,7 @@ require_once 'func.php';
         <th>Nama Lengkap</th>
         <th>Jenis Kelamin</th>
         <th>Bidang</th>
-        <th>Nama Perus</th>
+        <th>Nama Perusahaan</th>
         <th>Status</th>
         <th>Aksi</th>
 

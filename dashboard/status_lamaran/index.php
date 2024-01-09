@@ -3,7 +3,7 @@ require_once 'func.php';
 
 ?>
 
-<h3>Riawayat Pendaftaran</h3>
+<h3>Riwayat Pendaftaran</h3>
 
 <br>
 
@@ -15,9 +15,9 @@ require_once 'func.php';
         <th>Nama Lengkap</th>
         <th>Jenis Kelamin</th>
         <th>Bidang</th>
-        <th>Nama Perus</th>
+        <th>Nama Perusahaan</th>
         <th>Status</th>
-
+        <th>Aksi</th>
       </tr>
     </thead>
     <tbody>
@@ -35,12 +35,21 @@ require_once 'func.php';
           echo "<td>";
           if ($data['status'] == 1) {
             echo "Menunggu Konfirmasi";
-          } else if ($data['status'] == 2){
-            echo "Diterima"; 
-          }else if ($data['status'] == 3){
-            echo "Ditolak"; 
+          } else if ($data['status'] == 2) {
+            echo "Diterima";
+          } else if ($data['status'] == 3) {
+            echo "Ditolak";
           }
           echo "</td>";
+
+          echo "<td>";
+          // Tampilkan tombol "Next" jika status_pendaftaran sama dengan 2
+          if ($data['status'] == 2) {
+            echo "<div class='text-center'><a href='#' class='btn btn-warning'>Detail</a></div>";
+          }
+          echo "</td>";
+
+          echo "</tr>";
         }
       }
       ?>

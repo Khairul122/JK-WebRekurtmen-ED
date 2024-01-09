@@ -24,31 +24,38 @@ if ($result_count_pendaftaran) {
 } else {
     $total_pendaftaran = 0; // Atur ke 0 jika terjadi kesalahan
 }
+
+// Ambil hak_pengguna dari session
+$hak_pengguna = isset($_SESSION['hak']) ? $_SESSION['hak'] : '';
+
 ?>
 
-<div class="d-sm-flex align-items-center justify-content-between mb-5">
-    <section class="px-4">
-        <div class="d-flex flex-row justify-content-between">
-            <!-- Card Lowongan -->
-            <div class="card text-white bg-secondary mb-3" style="width: 18rem; height: 8rem;">
-                <div class="card-body">
-                    <h2 class="card-title font-weight-bold">Lowongan</h2>
-                    <h3 class="font-weight-bold"><?php echo $total_lowongan; ?></h3>
-                </div>
-            </div>
-
-            <!-- Card Calon Pelamar -->
-            <div style="padding-left: 2%;">
+<?php if ($hak_pengguna === 'admin'): ?>
+    <!-- Tampilkan card hanya jika yang login adalah admin -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-5">
+        <section class="px-4">
+            <div class="d-flex flex-row justify-content-between">
+                <!-- Card Lowongan -->
                 <div class="card text-white bg-secondary mb-3" style="width: 18rem; height: 8rem;">
                     <div class="card-body">
-                        <h2 class="card-title font-weight-bold">Calon Pelamar</h2>
-                        <h3 class="font-weight-bold"><?php echo $total_pendaftaran; ?></h3>
+                        <h2 class="card-title font-weight-bold">Lowongan</h2>
+                        <h3 class="font-weight-bold"><?php echo $total_lowongan; ?></h3>
+                    </div>
+                </div>
+
+                <!-- Card Calon Pelamar -->
+                <div style="padding-left: 2%;">
+                    <div class="card text-white bg-secondary mb-3" style="width: 18rem; height: 8rem;">
+                        <div class="card-body">
+                            <h2 class="card-title font-weight-bold">Calon Pelamar</h2>
+                            <h3 class="font-weight-bold"><?php echo $total_pendaftaran; ?></h3>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
+<?php endif; ?>
 
 <!-- Content Row -->
 <div class="row">

@@ -17,7 +17,7 @@ $_SESSION['auth_key'] = $data['id'].$_COOKIE["PHPSESSID"];
 $_SESSION['nama'] = $data['nama'];
 $_SESSION['email'] = $data['email'];
 $_SESSION['hak'] = $data['hak_pengguna'];
-echo '<script>window.location = "dashboard/index.php?r=welcome/index"</script>';
+echo '<script>window.location = "dashboard/index.php?r=welcome/index_admin"</script>';
 }
 else{
     $_SESSION['auth_msg'] = "Username Atau Password Anda Salah";
