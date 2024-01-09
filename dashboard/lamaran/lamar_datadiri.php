@@ -1,21 +1,54 @@
 <?php
 require_once 'func.php';
+$current_page = isset($_GET['r']) ? $_GET['r'] : ''; 
 
 $id_lowongan = $_POST['id_lowongan'];
 $one = GetOne($id_lowongan);
 
 if (!empty($one)) {
     foreach ($one as $data) {
-        echo "<p>ID Lowongan: " . $data['id_lowongan'] . "</p>";
-        echo "<p>Bidang: " . $data['bidang'] . "</p>";
-        echo "<p>Nama Perusahaan: " . $data['nama_perus'] . "</p>";
+        // echo "<p>ID Lowongan: " . $data['id_lowongan'] . "</p>";
+        // echo "<p>Bidang: " . $data['bidang'] . "</p>";
+        // echo "<p>Nama Perusahaan: " . $data['nama_perus'] . "</p>";
     }
 } else {
     echo "<h4>Data tidak ditemukan</h4>";
 }
 ?>
 
-<div class='panel panel-info'>
+<section>
+    <div class="row">
+        <div class="card <?php echo ($current_page === 'lamaran/lamar_datadiri') ? 'bg-warning' : 'bg-secondary'; ?> text-white mb-3" style="width: 200px; height: 80px;">
+            <div class="card-body text-center ">
+                <h3 class="card-title text-dark">Data Diri</h3>
+            </div>
+        </div>
+
+        <div style="padding-left:2%;">
+            <div class="card <?php echo ($current_page === 'lamaran/lamar_pendidikan') ? 'bg-warning' : 'bg-secondary'; ?> text-white mb-3" style="width: 200px; height: 80px;">
+                <div class="card-body text-center ">
+                    <h3 class="card-title text-dark">Pendidikan</h3>
+                </div>
+            </div>
+        </div>
+        <div style="padding-left:2%;">
+            <div class="card <?php echo ($current_page === 'lamaran/lamar_pengalamaan') ? 'bg-warning' : 'bg-secondary'; ?> text-white mb-3" style="width: 200px; height: 80px;">
+                <div class="card-body text-center ">
+                    <h3 class="card-title text-dark">Pengalaman</h3>
+                </div>
+            </div>
+        </div>
+        <div style="padding-left:2%;">
+            <div class="card <?php echo ($current_page === 'lamaran/lamar_keahlian') ? 'bg-warning' : 'bg-secondary'; ?> text-white mb-3" style="width: 200px; height: 80px;">
+                <div class="card-body text-center ">
+                    <h3 class="card-title text-dark">Keahlian</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class='panel panel-info pt-4'>
     <div class='panel-heading'>
         <h3>Form Data Diri</h3>
     </div>
@@ -93,6 +126,15 @@ if (!empty($one)) {
                 </div>
 
                 <div class="form-group">
+                    <label for="role">Daftar Sebagai</label>
+                    <select class="form-control" id="role" name="role">
+                        <option value="medis">Medis</option>
+                        <option value="non medis">Non Medis</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="foto_pelamar">Foto Pelamar (PNG atau JPG)</label>
                     <input type="file" class="form-control-file" id="foto_pelamar" name="foto_pelamar" accept=".png, .jpg, .jpeg">
                 </div>
@@ -131,7 +173,9 @@ if (!empty($one)) {
                     <input type="file" class="form-control-file" id="surat_lamaran" name="surat_lamaran" accept=".pdf, .docx">
                 </div>
             <?php } ?>
-            <input type='submit' name='insert_data_diri' value='Save' class='btn btn-sm btn-warning'>
+            <div class="pt-3">
+                <input type='submit' name='insert_data_diri' value='Selanjutnya' class='btn btn-primary btn-lg btn-block'>
+            </div>
         </form>
     </div>
 </div>

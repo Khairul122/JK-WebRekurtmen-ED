@@ -9,85 +9,69 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="assets/img/logo3.png">
-    <title>SIMPESA - Daftar</title>
+    <title>RS PIM</title>
 
     <!-- Custom fonts for this template-->
     <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
-<body class="bg-gradient-primary">
+<style>
+    body {
+            background-image: url('assets/img/logo7.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Menggunakan tinggi 100% dari viewport */
+            margin: 0; /* Menghilangkan margin default body */
+        }
+</style>
 
+<body class="">
     <div class="container">
-
-       
-            <div class="card-body p-0" >
-                <!-- Nested Row within Card Body -->
-              
-                 <center>
-                    <div class="col-lg-7" style="background-color: white;">
-                        <div class="p-5">
-                            <div class="text-center">
+        <div class="card-body p-0">
+            <center>
+                <div class="col-lg-7" style="background-color: white;">
+                    <div class="p-5">
+                        <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Daftar akun !</h1>
+                        </div>
+                        <form class="user" action="proses_daftar.php" method="POST">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" name="nama" id="exampleFirstName" placeholder="Nama Lengkap">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user" name="no_hp" id="exampleLastName" placeholder="No.Handphone">
+                                </div>
                             </div>
-                            <form class="user" action="proses_daftar.php" method="POST">
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" name="nama" id="exampleFirstName"
-                                            placeholder="Nama Lengkap">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" name="no_hp" id="exampleLastName"
-                                            placeholder="No.Handphone">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail"
-                                        placeholder="Email ">
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" name="password" placeholder="Password">
-                                    </div>
-                               
-                                </div>
-                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Kirim">
-                                 
-                             
-                                <a href="index.php" class="btn btn-danger btn-user btn-block">
-                               Batal
-                                </a>
-                              
-                              
-                            
-                            </form>
-                            <hr>               
-                            <div class="text-center">
-                                <a class="small" href="masuk.php">Kamu Sudah memiliki akun ? Login !</a>
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" placeholder="Email ">
                             </div>
-                              <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Simpesa 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+                            <div class="form-group row">
+                                <div class="col">
+                                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="password" placeholder="Password">
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Kirim">
+                            <a href="index.php" class="btn btn-danger btn-user btn-block">
+                                Batal
+                            </a>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="masuk.php">Kamu Sudah memiliki akun ? Login !</a>
                         </div>
                     </div>
-                
+                </div>
         </div>
-
     </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
