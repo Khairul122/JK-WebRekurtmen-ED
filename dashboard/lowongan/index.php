@@ -15,6 +15,7 @@ require_once 'func.php';
         <th>No</th>
         <th>Nama Perusahaan</th>
         <th>Bidang</th>
+        <th>Kuota</th>
         <th>Valid Until</th>
         <th>Persyaratan Khusus</th>
         <th colspan='2'>Opsi</th>
@@ -30,6 +31,7 @@ require_once 'func.php';
           echo "<td>" . $no++ . "</td>";
           echo "<td>" . $data['nama_perus'] . "</td>";
           echo "<td>" . $data['bidang'] . "</td>";
+          echo "<td>" . $data['kuota'] . "</td>";
           echo "<td>" . date('d F Y', strtotime($data['valid_until'])) . "</td>";
           echo "<td>";
           $persyaratanKhusus = explode("\n", $data['persyaratan_khusus']);

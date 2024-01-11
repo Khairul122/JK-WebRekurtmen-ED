@@ -1,3 +1,24 @@
+<?php
+
+
+function GetAll()
+{
+  $query = "SELECT * FROM tbl_lowongan";
+  $exe = mysqli_query(Connect(), $query);
+  while ($data = mysqli_fetch_array($exe)) {
+    $datas[] = array(
+      'id_lowongan' => $data['id_lowongan'],
+      'nama_perus' => $data['nama_perus'],
+      'bidang' => $data['bidang'],
+      'kuota' => $data['kuota'],
+      'valid_until' => $data['valid_until'],
+      'persyaratan_khusus' => $data['persyaratan_khusus'],
+    );
+  }
+  return $datas;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,7 +88,7 @@
 
         <div class="intro-img" data-aos="zoom-out" data-aos-delay="200">
           <img src="assets/img/intro-img.svg" alt="" class="img-fluid">
-          
+
         </div>
 
         <div class="intro-info" data-aos="zoom-in" data-aos-delay="100">
@@ -93,15 +114,55 @@
             Di Rumah Sakit Prima Inti Medika, kami menyediakan berbagai layanan medis yang komprehensif. Mulai dari pelayanan rawat jalan, perawatan rawat inap, hingga layanan gawat darurat, kami siap memberikan perawatan yang tepat dan responsif sesuai dengan kebutuhan Anda</h4>
         </div>
       </div>
-      </div>
-      </div>
-
-      </div>
-
-
     </section><!-- End About Section -->
 
-    <section class="inner-page">
+    <div class="container" data-aos="fade-up" style="padding-top: 100px;">
+      <div class='table-responsive'>
+        <table class='table table-bordered table'>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Perusahaan</th>
+              <th>Bidang</th>
+              <th>Kuota</th>
+              <th>Valid Until</th>
+              <th>Persyaratan Khusus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $lowongans = GetAll();
+            $no = 1;
+            if (isset($lowongans)) {
+              foreach ($lowongans as $data) {
+                echo "<tr>";
+                echo "<td>" . $no++ . "</td>";
+                echo "<td>" . $data['nama_perus'] . "</td>";
+                echo "<td>" . $data['bidang'] . "</td>";
+                echo "<td>" . $data['kuota'] . "</td>";
+                echo "<td>" . date('d F Y', strtotime($data['valid_until'])) . "</td>";
+                echo "<td>";
+                $persyaratanKhusus = explode("\n", $data['persyaratan_khusus']);
+                foreach ($persyaratanKhusus as $index => $persyaratan) {
+                  echo ($index + 1) . ". " . trim($persyaratan) . "<br>";
+                }
+                echo "</tr>";
+              }
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="justify-content-center text-center pt-4 " data-aos="fade-up">
+      <a href="masuk.php" class="btn btn-primary btn-lg" style="width: 300px;">Apply</a>
+    </div>
+
+
+
+
+    <section class="inner-page" style="padding-top: 100px;">
       <div class="container">
         <div class="justify-content-center  pt-4" data-aos="fade-up" style="padding-top: 1000px; padding-bottom: 80px">
           <div class="text-center">

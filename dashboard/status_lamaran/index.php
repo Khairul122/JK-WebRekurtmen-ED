@@ -39,13 +39,16 @@ require_once 'func.php';
             echo "Diterima";
           } else if ($data['status'] == 3) {
             echo "Ditolak";
+          }else if ($data['status'] == 4) {
+            echo "Lulus Berkas";
           }
+            
           echo "</td>";
 
           echo "<td>";
           // Tampilkan tombol "Next" jika status_pendaftaran sama dengan 2
-          if ($data['status'] == 2) {
-            echo "<div class='text-center'><a href='#' class='btn btn-warning'>Detail</a></div>";
+          if ($data['status'] == 2 || $data['status'] == 4) {
+            echo "<div class='text-center'><a href='../another.php' class='btn btn-warning'>Detail</a></div>";
           }
           echo "</td>";
 

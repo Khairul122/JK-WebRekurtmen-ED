@@ -108,7 +108,10 @@ function InsertDataDiri($id_lowongan)
   $kecamatan = $_POST['kecamatan'];
   $alamat = $_POST['alamat'];
   $status_diri = $_POST['status_diri'];
-  $no_ktp = $_POST['no_ktp']; // Tambahkan variabel no_ktp
+  $no_ktp = $_POST['no_ktp'];
+  $umur = $_POST['umur'];
+  $ibu = $_POST['ibu'];
+
 
   // Create an array to store form data
   $formDataDiri = array(
@@ -124,7 +127,9 @@ function InsertDataDiri($id_lowongan)
     'kecamatan' => $kecamatan,
     'alamat' => $alamat,
     'status_diri' => $status_diri,
-    'no_ktp' => $no_ktp
+    'no_ktp' => $no_ktp,
+    'umur' => $umur,
+    'ibu' => $ibu
   );
 
   // Assign the array to a session variable
@@ -170,10 +175,10 @@ function InsertDataDiri($id_lowongan)
     ) {
       // Query untuk menyimpan data ke tabel tbl_datadiri
       $query = "INSERT INTO tbl_datadiri (id_lowongan, nama_lengkap, email, tempat_lahir, tanggal_lahir, 
-                          jenis_kelamin, no_hp, provinsi, kabupaten, kecamatan, alamat, status_diri, foto_pelamar, cv, str, ijazah, transkrip, ktp, surat_lamaran, no_ktp) 
+                          jenis_kelamin, no_hp, provinsi, kabupaten, kecamatan, alamat, status_diri, foto_pelamar, cv, str, ijazah, transkrip, ktp, surat_lamaran, no_ktp, umur, ibu) 
                           VALUES ('$id_lowongan', '$nama_lengkap', '$email', '$tempat_lahir', '$tanggal_lahir', 
                           '$jenis_kelamin', '$no_hp', '$provinsi', '$kabupaten', '$kecamatan', '$alamat', '$status_diri', 
-                          '$foto_pelamar', '$cv_pelamar', '$str', '$ijazah', '$transkrip', '$ktp', '$surat_lamaran', '$no_ktp')";
+                          '$foto_pelamar', '$cv_pelamar', '$str', '$ijazah', '$transkrip', '$ktp', '$surat_lamaran', '$no_ktp','$umur','$ibu')";
 
       $exe = mysqli_query(Connect(), $query);
 
@@ -188,7 +193,7 @@ function InsertDataDiri($id_lowongan)
         // Jika gagal, beri pesan error
         $_SESSION['message'] = "Gagal menyimpan data: " . mysqli_error(Connect());
         $_SESSION['mType'] = "danger";
-        echo '<script>window.location = "?r=lamaran/data_diri";</script>';
+        echo '<script>window.location = "?r=lamaran/lamar_datadiri";</script>';
       }
     } else {
       // Jika gagal mengunggah file
@@ -327,10 +332,10 @@ function InsertDataKeahlian($id_lowongan)
       $nama_perus = $row_data_lowongan['nama_perus'];
 
       $status = 1;
-
+      $id_pengguna = isset($_SESSION['id']) ? $_SESSION['id'] : '';
       // Tambahkan data ke tbl_pendaftaran
-      $query_pendaftaran = "INSERT INTO tbl_pendaftaran (id_lowongan, nama_lengkap, bidang, nama_perus, status, jenis_kelamin)
-      VALUES ('$id_lowongan', '$nama_lengkap','$bidang','$nama_perus','$status','$jenis_kelamin')";
+      $query_pendaftaran = "INSERT INTO tbl_pendaftaran (id_lowongan, nama_lengkap, bidang, nama_perus, status, jenis_kelamin, id_pengguna)
+      VALUES ('$id_lowongan', '$nama_lengkap','$bidang','$nama_perus','$status','$jenis_kelamin', '$id_pengguna')";
     } else {
       // Handle jika query untuk mendapatkan data tbl_lowongan gagal atau tidak mengembalikan hasil
       $_SESSION['message'] = "Gagal mendapatkan data tbl_lowongan: " . mysqli_error(Connect());
@@ -344,7 +349,7 @@ function InsertDataKeahlian($id_lowongan)
       // Jika berhasil menyimpan data pendaftaran
       $_SESSION['message'] = "Data pendaftaran sudah disimpan";
       $_SESSION['mType'] = "success";
-      echo '<script>window.location = "?r=lamaran/index";</script>';
+      echo '<script>window.location = "?r=lamaran/lamar_keahlian";</script>';
     } else {
       // Jika gagal menyimpan data pendaftaran
       $_SESSION['message'] = "Data pendaftaran gagal disimpan: " . mysqli_error(Connect());

@@ -76,77 +76,97 @@ function GetProfileById($id_profile)
 
 function InsertProfile()
 {
-  // Ambil nilai dari formulir
-  $no_ktp = $_POST['no_ktp'];
+  // Ambil data dari formulir
+  $id_pengguna = $_POST['id_pengguna'];
   $nama_lengkap = $_POST['nama_lengkap'];
   $email = $_POST['email'];
   $tempat_lahir = $_POST['tempat_lahir'];
   $tanggal_lahir = $_POST['tanggal_lahir'];
   $jenis_kelamin = $_POST['jenis_kelamin'];
   $no_hp = $_POST['no_hp'];
-  $status_diri = $_POST['status_diri'];
-  $alamat = $_POST['alamat'];
-  $alamat_domisili = $_POST['alamat_domisili'];
   $provinsi = $_POST['provinsi'];
   $kabupaten = $_POST['kabupaten'];
   $kecamatan = $_POST['kecamatan'];
-  $id_pengguna = $_POST['id_pengguna']; // id_pengguna diubah menjadi input hidden
-
-  // Simpan file yang diunggah ke folder yang diinginkan
-  $foto_pelamar = $_FILES['foto_pelamar']['name'];
-  $cv = $_FILES['cv']['name'];
-  $str = $_FILES['str']['name'];
-  $ijazah = $_FILES['ijazah']['name'];
-  $transkrip = $_FILES['transkrip']['name'];
-  $ktp = $_FILES['ktp']['name'];
-  $surat_lamaran = $_FILES['surat_lamaran']['name'];
-
-  // Tentukan lokasi folder penyimpanan file (sesuaikan dengan struktur folder Anda)
-  $upload_folder = '../assets/img/profile/';
-
-  // Pindahkan file yang diunggah ke folder yang ditentukan
-  move_uploaded_file($_FILES['foto_pelamar']['tmp_name'], $upload_folder . $foto_pelamar);
-  move_uploaded_file($_FILES['cv']['tmp_name'], $upload_folder . $cv);
-  move_uploaded_file($_FILES['str']['tmp_name'], $upload_folder . $str);
-  move_uploaded_file($_FILES['ijazah']['tmp_name'], $upload_folder . $ijazah);
-  move_uploaded_file($_FILES['transkrip']['tmp_name'], $upload_folder . $transkrip);
-  move_uploaded_file($_FILES['ktp']['tmp_name'], $upload_folder . $ktp);
-  move_uploaded_file($_FILES['surat_lamaran']['tmp_name'], $upload_folder . $surat_lamaran);
-
-  // Query untuk menyimpan data ke tabel tbl_profile
-  $query_profile = "INSERT INTO tbl_profile (no_ktp, nama_lengkap, email, tempat_lahir, tanggal_lahir, jenis_kelamin, no_hp, status_diri, alamat, alamat_domisili, provinsi, kabupaten, kecamatan, foto_pelamar, cv, str, ijazah, transkrip, ktp, surat_lamaran, id_pengguna)
-    VALUES ('$no_ktp', '$nama_lengkap', '$email', '$tempat_lahir', '$tanggal_lahir', '$jenis_kelamin', '$no_hp', '$status_diri', '$alamat', '$alamat_domisili', '$provinsi', '$kabupaten', '$kecamatan', '$foto_pelamar', '$cv', '$str', '$ijazah', '$transkrip', '$ktp', '$surat_lamaran', '$id_pengguna')";
-
-  // Eksekusi query
-  $result_profile = mysqli_query(Connect(), $query_profile);
-
-  // Periksa apakah data berhasil disimpan
-  if ($result_profile) {
-    // Jika berhasil disimpan
-    echo "Data profile berhasil disimpan";
-    // Lakukan pengalihan halaman atau tampilkan pesan sukses sesuai kebutuhan
-  } else {
-    // Jika gagal menyimpan data
-    echo "Gagal menyimpan data profile: " . mysqli_error(Connect());
-    // Lakukan pengalihan halaman atau tampilkan pesan kesalahan sesuai kebutuhan
-  }
-}
-
-
-// Fungsi untuk menyimpan file
-function saveFile($inputName, $targetDir)
-{
-  $file = $_FILES[$inputName]['name'];
-  $targetFile = $targetDir . basename($file);
+  $alamat = $_POST['alamat'];
+  $alamat_domisili = $_POST['alamat_domisili'];
+  $status_diri = $_POST['status_diri'];
+  $no_ktp = $_POST['no_ktp']; 
+  $status = 1;
+  $umur = $_POST['umur'];
+  $ibu = $_POST['ibu'];  
   
-  // Pindahkan file ke direktori penyimpanan
-  if (move_uploaded_file($_FILES[$inputName]['tmp_name'], $targetFile)) {
-    return $file; // Mengembalikan nama file untuk disimpan di database
+
+
+
+  $_SESSION['id_pengguna'] = $id_pengguna;
+
+  // Periksa apakah ada file foto, CV, STR, Ijazah, Transkrip, KTP, dan Surat Lamaran yang diunggah
+  if ($_FILES['foto_pelamar']['error'] === UPLOAD_ERR_OK && $_FILES['cv']['error'] === UPLOAD_ERR_OK && $_FILES['str']['error'] === UPLOAD_ERR_OK && $_FILES['ijazah']['error'] === UPLOAD_ERR_OK && $_FILES['transkrip']['error'] === UPLOAD_ERR_OK && $_FILES['ktp']['error'] === UPLOAD_ERR_OK && $_FILES['surat_lamaran']['error'] === UPLOAD_ERR_OK) {
+    $foto_pelamar = $_FILES['foto_pelamar']['name'];
+    $cv_pelamar = $_FILES['cv']['name'];
+    $str = $_FILES['str']['name'];
+    $ijazah = $_FILES['ijazah']['name'];
+    $transkrip = $_FILES['transkrip']['name'];
+    $ktp = $_FILES['ktp']['name'];
+    $surat_lamaran = $_FILES['surat_lamaran']['name'];
+
+    $target_dir_foto = "../assets/img/profile/foto/";
+    $target_dir_cv = "../assets/img/profile/cv/";
+    $target_dir_str = "../assets/img/profile/str/";
+    $target_dir_ijazah = "../assets/img/profile/ijazah/";
+    $target_dir_transkrip = "../assets/img/profile/transkrip/";
+    $target_dir_ktp = "../assets/img/profile/ktp/";
+    $target_dir_surat_lamaran = "../assets/img/profile/surat_lamaran/";
+
+    $target_file_foto = $target_dir_foto . basename($foto_pelamar);
+    $target_file_cv = $target_dir_cv . basename($cv_pelamar);
+    $target_file_str = $target_dir_str . basename($str);
+    $target_file_ijazah = $target_dir_ijazah . basename($ijazah);
+    $target_file_transkrip = $target_dir_transkrip . basename($transkrip);
+    $target_file_ktp = $target_dir_ktp . basename($ktp);
+    $target_file_surat_lamaran = $target_dir_surat_lamaran . basename($surat_lamaran);
+
+    // Pindahkan file ke direktori penyimpanan
+    if (
+      move_uploaded_file($_FILES['foto_pelamar']['tmp_name'], $target_file_foto) &&
+      move_uploaded_file($_FILES['cv']['tmp_name'], $target_file_cv) &&
+      move_uploaded_file($_FILES['str']['tmp_name'], $target_file_str) &&
+      move_uploaded_file($_FILES['ijazah']['tmp_name'], $target_file_ijazah) &&
+      move_uploaded_file($_FILES['transkrip']['tmp_name'], $target_file_transkrip) &&
+      move_uploaded_file($_FILES['ktp']['tmp_name'], $target_file_ktp) &&
+      move_uploaded_file($_FILES['surat_lamaran']['tmp_name'], $target_file_surat_lamaran)
+    ) {
+      // Query untuk menyimpan data ke tabel tbl_datadiri
+      $query = "INSERT INTO tbl_profile (id_pengguna, nama_lengkap, email, tempat_lahir, tanggal_lahir, 
+                          jenis_kelamin, no_hp, provinsi, kabupaten, kecamatan, alamat, alamat_domisili, status_diri, foto_pelamar, cv, str, ijazah, transkrip, ktp, surat_lamaran, no_ktp, status, umur, ibu) 
+                          VALUES ('$id_pengguna', '$nama_lengkap', '$email', '$tempat_lahir', '$tanggal_lahir', 
+                          '$jenis_kelamin', '$no_hp', '$provinsi', '$kabupaten', '$kecamatan', '$alamat','$alamat_domisili', '$status_diri', 
+                          '$foto_pelamar', '$cv_pelamar', '$str', '$ijazah', '$transkrip', '$ktp', '$surat_lamaran', '$no_ktp','$status', '$umur', '$ibu')";
+
+      $exe = mysqli_query(Connect(), $query);
+
+      if ($exe) {
+        // Jika berhasil, beri pesan sukses dan alihkan ke halaman indeks lamaran
+        $_SESSION['message'] = "Data sudah disimpan";
+        $_SESSION['mType'] = "success";
+        $id_datadiri = mysqli_insert_id(Connect());
+        $_SESSION['id_datadiri'] = $id_datadiri;
+        echo '<script>window.location = "?r=lihat_profile/index";</script>';
+      } else {
+        // Jika gagal, beri pesan error
+        $_SESSION['message'] = "Gagal menyimpan data: " . mysqli_error(Connect());
+        $_SESSION['mType'] = "danger";
+        echo '<script>window.location = "?r=profile/index";</script>';
+      }
+    } else {
+      // Jika gagal mengunggah file
+      echo "Gagal mengunggah file.";
+    }
   } else {
-    return null; // Mengembalikan null jika gagal mengunggah file
+    // Jika terjadi kesalahan saat mengunggah file
+    echo "Terjadi kesalahan saat mengunggah file.";
   }
 }
-
 
 
 

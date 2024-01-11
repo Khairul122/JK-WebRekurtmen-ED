@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Jan 2024 pada 01.13
+-- Waktu pembuatan: 11 Jan 2024 pada 19.10
 -- Versi server: 10.4.14-MariaDB
 -- Versi PHP: 7.4.10
 
@@ -96,7 +96,9 @@ INSERT INTO `pengguna` (`id`, `nama`, `no_hp`, `email`, `password`, `hak_penggun
 (37, 'admin', '08121212131', 'admin@admin.com', 'admin', 'admin'),
 (51, 'user', '08272613182', 'user@user.com', 'user', 'user'),
 (52, 'icome', '081289374683', 'icome@icome.com', 'icome', 'user'),
-(53, 'budi', '082165443677', 'budi@gmail.com', '12345678', 'user');
+(53, 'budi', '082165443677', 'budi@gmail.com', '12345678', 'user'),
+(54, 'rita', '082165443677', 'rita@gmail.com', '12345678', 'user'),
+(55, 'ari', '082165443677', 'ari@gmail.com', '12345678', 'user');
 
 -- --------------------------------------------------------
 
@@ -156,6 +158,8 @@ CREATE TABLE `tbl_datadiri` (
   `tempat_lahir` text DEFAULT NULL,
   `tanggal_lahir` date DEFAULT NULL,
   `jenis_kelamin` enum('pria','wanita') DEFAULT NULL,
+  `umur` int(11) NOT NULL,
+  `ibu` varchar(50) NOT NULL,
   `no_hp` int(20) DEFAULT NULL,
   `provinsi` varchar(30) DEFAULT NULL,
   `kabupaten` varchar(30) DEFAULT NULL,
@@ -172,6 +176,16 @@ CREATE TABLE `tbl_datadiri` (
   `surat_lamaran` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `tbl_datadiri`
+--
+
+INSERT INTO `tbl_datadiri` (`id_datadiri`, `id_lowongan`, `nama_lengkap`, `no_ktp`, `email`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `umur`, `ibu`, `no_hp`, `provinsi`, `kabupaten`, `kecamatan`, `alamat`, `status_diri`, `foto_pelamar`, `role`, `cv`, `str`, `ijazah`, `transkrip`, `ktp`, `surat_lamaran`) VALUES
+(50, 4, 'Andika', 1222, 'budi@gmail.com', 'Padang', '2024-01-09', 'wanita', 0, '', 2147483647, 'Sumatera Barang', 'Padang Pariaman', 'asasa', 'Naras Hilir', 2, 'asal 2.png', 'medis', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', '1059-2368-1-PB.pdf', 'CutiUser[034]04012024.pdf'),
+(51, 4, 'Khairul Huda', 1222, 'mkhairul629@yahoo.com', 'Padang', '2024-01-11', 'wanita', 0, '', 2147483647, 'Sumatera Barang', 'Padang Pariaman', 'asa', 'Naras Hilir', 2, 'asal 2.png', 'medis', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf'),
+(52, 4, 'Khairul Huda', 1222, 'admin@example.com', '2', '2024-01-12', 'wanita', 2, '2', 2, '2', '2', '2', '2', 3, 'Image (5).png', 'medis', '1248-Article Text-3657-3-10-20211020 (1).pdf', '1248-Article Text-3657-3-10-20211020 (1).pdf', '1248-Article Text-3657-3-10-20211020 (1).pdf', '1248-Article Text-3657-3-10-20211020 (1).pdf', '1248-Article Text-3657-3-10-20211020 (1).pdf', '1248-Article Text-3657-3-10-20211020 (1).pdf'),
+(53, 4, 'Khairul Huda', 1222, 'nadya@gmail.com', 'asasa', '2024-01-12', 'pria', 2, '2', 2, '2', '2', '2', '2', 3, 'acak1.png', 'medis', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf');
+
 -- --------------------------------------------------------
 
 --
@@ -185,6 +199,18 @@ CREATE TABLE `tbl_keahlian` (
   `tingkat_keahlian` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `tbl_keahlian`
+--
+
+INSERT INTO `tbl_keahlian` (`id_keahlian`, `id_lowongan`, `keahlian`, `tingkat_keahlian`) VALUES
+(608, 4, '2', '2'),
+(609, 4, '2', '2'),
+(610, 4, 'a', 'a'),
+(611, 4, '2', '2'),
+(612, 4, 'c', 'c'),
+(613, 4, 'a', 'a');
+
 -- --------------------------------------------------------
 
 --
@@ -195,6 +221,7 @@ CREATE TABLE `tbl_lowongan` (
   `id_lowongan` int(11) NOT NULL,
   `nama_perus` varchar(120) DEFAULT NULL,
   `bidang` varchar(120) DEFAULT NULL,
+  `kuota` int(5) NOT NULL,
   `valid_until` date DEFAULT NULL,
   `persyaratan_khusus` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -203,8 +230,8 @@ CREATE TABLE `tbl_lowongan` (
 -- Dumping data untuk tabel `tbl_lowongan`
 --
 
-INSERT INTO `tbl_lowongan` (`id_lowongan`, `nama_perus`, `bidang`, `valid_until`, `persyaratan_khusus`) VALUES
-(4, 'RS.Prima Inti Medika', 'Farmasi', '2024-06-11', 'Memiliki Surat Tanda Registrasi Apoteker (STRA)\r\nPengalaman Kerja Minimal 2 tahun\r\nBersedia bekerja shift\r\nPendidikan Minimum Profesi Apoteker');
+INSERT INTO `tbl_lowongan` (`id_lowongan`, `nama_perus`, `bidang`, `kuota`, `valid_until`, `persyaratan_khusus`) VALUES
+(4, 'RS.Prima Inti Medika1', 'Farmasi', 51, '2024-06-11', 'Memiliki Surat Tanda Registrasi Apoteker (STRA)\r\nPengalaman Kerja Minimal 2 tahun\r\nBersedia bekerja shift\r\nPendidikan Minimum Profesi Apoteker');
 
 -- --------------------------------------------------------
 
@@ -216,12 +243,21 @@ CREATE TABLE `tbl_pendaftaran` (
   `id_pendaftaran` int(11) NOT NULL,
   `id_lowongan` int(11) DEFAULT NULL,
   `id_datadiri` int(11) DEFAULT NULL,
+  `id_pengguna` int(11) NOT NULL,
   `jenis_kelamin` enum('pria','wanita') DEFAULT NULL,
   `bidang` varchar(100) DEFAULT NULL,
   `nama_perus` varchar(100) DEFAULT NULL,
   `nama_lengkap` varchar(100) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tbl_pendaftaran`
+--
+
+INSERT INTO `tbl_pendaftaran` (`id_pendaftaran`, `id_lowongan`, `id_datadiri`, `id_pengguna`, `jenis_kelamin`, `bidang`, `nama_perus`, `nama_lengkap`, `status`) VALUES
+(31, 4, NULL, 53, 'pria', 'Farmasi', 'RS.Prima Inti Medika1', 'Khairul Huda', 4),
+(32, NULL, NULL, 5, NULL, NULL, NULL, '', 0);
 
 -- --------------------------------------------------------
 
@@ -240,6 +276,15 @@ CREATE TABLE `tbl_pendidikan` (
   `IPK` decimal(4,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `tbl_pendidikan`
+--
+
+INSERT INTO `tbl_pendidikan` (`id_pendidikan`, `id_lowongan`, `pendidikan_terkakhir`, `asal_sekolah`, `jurusan`, `tahun_masuk`, `tahun_lulus`, `IPK`) VALUES
+(31, 4, '2', '2', '2', 2, 2, '2.00'),
+(32, 4, 'S1', '2', 'IPA', 2023, 2024, '3.00'),
+(33, 4, 'S1', '2', 'asaa', 2022, 2023, '3.00');
+
 -- --------------------------------------------------------
 
 --
@@ -256,6 +301,15 @@ CREATE TABLE `tbl_pengalaman` (
   `alasan` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `tbl_pengalaman`
+--
+
+INSERT INTO `tbl_pengalaman` (`id_pengalaman`, `id_lowongan`, `nama_perusahaan`, `posisi_terakhir`, `jobdesk`, `penghasilan`, `alasan`) VALUES
+(26, 4, '', '2', '2', 2, '2'),
+(27, 4, '', 'asa', '22', 222, '2222'),
+(28, 4, '', '2', 'ada', 2, '2');
+
 -- --------------------------------------------------------
 
 --
@@ -271,6 +325,8 @@ CREATE TABLE `tbl_profile` (
   `tempat_lahir` varchar(50) DEFAULT NULL,
   `tanggal_lahir` date DEFAULT NULL,
   `jenis_kelamin` enum('pria','wanita') DEFAULT NULL,
+  `umur` int(11) NOT NULL,
+  `ibu` varchar(50) NOT NULL,
   `no_hp` bigint(20) DEFAULT NULL,
   `status_diri` int(11) DEFAULT NULL,
   `alamat` text DEFAULT NULL,
@@ -284,8 +340,18 @@ CREATE TABLE `tbl_profile` (
   `ijazah` varchar(300) DEFAULT NULL,
   `transkrip` varchar(300) DEFAULT NULL,
   `ktp` varchar(300) DEFAULT NULL,
-  `surat_lamaran` varchar(300) DEFAULT NULL
+  `surat_lamaran` varchar(300) DEFAULT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tbl_profile`
+--
+
+INSERT INTO `tbl_profile` (`id_profile`, `id_pengguna`, `nama_lengkap`, `no_ktp`, `email`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `umur`, `ibu`, `no_hp`, `status_diri`, `alamat`, `alamat_domisili`, `provinsi`, `kabupaten`, `kecamatan`, `foto_pelamar`, `cv`, `str`, `ijazah`, `transkrip`, `ktp`, `surat_lamaran`, `status`) VALUES
+(13, 53, 'Andika1111', 1231111, 'admin@gmail.com1111', 'asasa1111', '2024-01-11', 'wanita', 4, '', 8566579821111, 3, 'Naras Hilir1111', '21111', 'Aceh', 'Padang Pariaman1111', 'asa1111', 'jasaraharja1.png', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 1),
+(15, 55, 'Khairul Huda', 1222, 'admin@gmail.com', 'Padang', '2024-01-11', 'pria', 6, 'rosmanidar', 82165443677, 3, 'Simpang Len', '2', 'Lampung', '222', 'Sungai Limau', 'acak1.png', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 'CutiUser[034]04012024.pdf', 1),
+(16, 54, 'Rita', 1, 'rita@gmail.com', 'surabaya', '2001-11-29', 'wanita', 22, 'emi', 8566579821, 1, 'surabaya', 'surabaya', 'jawa timur', 'wonocolo', 'wonocolo', 'asal 2.png', 'Naskah publikasi ilmiah sohart.pdf', 'Naskah publikasi ilmiah sohart.pdf', '1248-Article Text-3657-3-10-20211020.pdf', '1248-Article Text-3657-3-10-20211020.pdf', '1248-Article Text-3657-3-10-20211020 (2).pdf', 'laporan_pengeluaran.pdf', 1);
 
 --
 -- Indexes for dumped tables
@@ -379,7 +445,7 @@ ALTER TABLE `komoditas`
 -- AUTO_INCREMENT untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk`
@@ -391,43 +457,43 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT untuk tabel `tbl_datadiri`
 --
 ALTER TABLE `tbl_datadiri`
-  MODIFY `id_datadiri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_datadiri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_keahlian`
 --
 ALTER TABLE `tbl_keahlian`
-  MODIFY `id_keahlian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=608;
+  MODIFY `id_keahlian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=614;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_lowongan`
 --
 ALTER TABLE `tbl_lowongan`
-  MODIFY `id_lowongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_lowongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_pendaftaran`
 --
 ALTER TABLE `tbl_pendaftaran`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_pendidikan`
 --
 ALTER TABLE `tbl_pendidikan`
-  MODIFY `id_pendidikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_pendidikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_pengalaman`
 --
 ALTER TABLE `tbl_pengalaman`
-  MODIFY `id_pengalaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_pengalaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_profile`
 --
 ALTER TABLE `tbl_profile`
-  MODIFY `id_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

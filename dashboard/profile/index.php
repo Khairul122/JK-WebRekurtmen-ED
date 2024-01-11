@@ -10,7 +10,7 @@ session_start();
     <h3>Basic Information</h3>
   </div>
   <div class='panel-body'>
-    <form action='' method='POST'>
+    <form action='' method='POST' enctype="multipart/form-data">
 
       <div class="form-group pt-3">
         <label for="no_ktp">No KTP</label>
@@ -44,6 +44,17 @@ session_start();
           <option value="wanita">Wanita</option>
         </select>
       </div>
+
+      <div class="form-group">
+        <label for="umur">Umur</label>
+        <input type="number" class="form-control" id="umur" name='umur'>
+      </div>
+
+      <div class="form-group">
+        <label for="ibu">Nama Ibu Kandung</label>
+        <input type="text" class="form-control" id="ibu" name='ibu'>
+      </div>
+
 
       <div class="form-group">
         <label for="no_hp">No Handphone</label>

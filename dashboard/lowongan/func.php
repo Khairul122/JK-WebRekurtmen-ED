@@ -10,6 +10,7 @@ function GetAll()
       'id_lowongan' => $data['id_lowongan'],
       'nama_perus' => $data['nama_perus'],
       'bidang' => $data['bidang'],
+      'kuota' => $data['kuota'],
       'valid_until' => $data['valid_until'],
       'persyaratan_khusus' => $data['persyaratan_khusus'],
     );
@@ -27,6 +28,7 @@ function GetOne($id_lowongan)
       'id_lowongan' => $data['id_lowongan'],
       'nama_perus' => $data['nama_perus'],
       'bidang' => $data['bidang'],
+      'kuota' => $data['kuota'],
       'valid_until' => $data['valid_until'],
       'persyaratan_khusus' => $data['persyaratan_khusus'],
     );
@@ -40,10 +42,12 @@ function Insert()
   $nama_perus = $_POST['nama_perus'];
   $bidang = $_POST['bidang'];
   $valid_until = $_POST['valid_until'];
+  $kuota = $_POST['kuota'];
   $persyaratan_khusus = $_POST['persyaratan_khusus'];
 
-  $query = "INSERT INTO `tbl_lowongan` (`nama_perus`, `bidang`, `valid_until`, `persyaratan_khusus`)
-              VALUES ('$nama_perus', '$bidang', '$valid_until', '$persyaratan_khusus')";
+  $query = "INSERT INTO `tbl_lowongan` (`nama_perus`, `bidang`, `valid_until`, `kuota`, `persyaratan_khusus`)
+  VALUES ('$nama_perus', '$bidang', '$valid_until', '$kuota', '$persyaratan_khusus')";
+
 
   $exe = mysqli_query(Connect(), $query);
 
@@ -53,7 +57,7 @@ function Insert()
     $_SESSION['mType'] = "success";
     echo '
         <script>
-            window.location = "?r=produk/index"
+            window.location = "?r=lowongan/index"
         </script>';
   } else {
     // Jika gagal
@@ -61,7 +65,7 @@ function Insert()
     $_SESSION['mType'] = "danger";
     echo '
         <script>
-            window.location = "?r=produk/index"
+            window.location = "?r=lowongan/create"
         </script>';
   }
 }
@@ -70,12 +74,14 @@ function Update($id_lowongan)
 {
   $nama_perus = $_POST['nama_perus'];
   $bidang = $_POST['bidang'];
+  $kuota = $_POST['kuota'];
   $valid_until = $_POST['valid_until'];
   $persyaratan_khusus = $_POST['persyaratan_khusus'];
 
   $query = "UPDATE `tbl_lowongan` SET 
             `nama_perus` = '$nama_perus',
             `bidang` = '$bidang',
+            `kuota` = '$kuota',
             `valid_until` = '$valid_until',
             `persyaratan_khusus` = '$persyaratan_khusus'
             WHERE `id_lowongan` = '$id_lowongan'";

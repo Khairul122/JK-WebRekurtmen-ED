@@ -3,21 +3,36 @@
 
 function GetAll()
 {
-  $query = "SELECT * FROM tbl_pendaftaran";
-  $exe = mysqli_query(Connect(), $query);
-  while ($data = mysqli_fetch_array($exe)) {
-    $datas[] = array(
-      'id_pendaftaran' => $data['id_pendaftaran'],
-      'id_lowongan' => $data['id_lowongan'],
-      'nama_lengkap' => $data['nama_lengkap'],
-      'jenis_kelamin' => $data['jenis_kelamin'],
-      'bidang' => $data['bidang'],
-      'nama_perus' => $data['nama_perus'],
-      'status' => $data['status'],
-    );
+  // Periksa apakah id_pengguna tersedia dalam sesi
+  session_start();
+  $id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+  session_write_close();
+
+  if ($id) {
+    // Ubah query untuk memilih data berdasarkan id_pengguna
+    $query = "SELECT * FROM tbl_pendaftaran WHERE id_pengguna = $id";
+    $exe = mysqli_query(Connect(), $query);
+
+    $datas = array();
+    while ($data = mysqli_fetch_array($exe)) {
+      $datas[] = array(
+        'id_pendaftaran' => $data['id_pendaftaran'],
+        'id_lowongan' => $data['id_lowongan'],
+        'nama_lengkap' => $data['nama_lengkap'],
+        'jenis_kelamin' => $data['jenis_kelamin'],
+        'bidang' => $data['bidang'],
+        'nama_perus' => $data['nama_perus'],
+        'status' => $data['status'],
+      );
+    }
+
+    return $datas;
+  } else {
+    // Id_pengguna tidak tersedia dalam sesi
+    return array();
   }
-  return $datas;
 }
+
 
 
 function GetOne($id_lowongan)

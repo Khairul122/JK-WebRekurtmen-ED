@@ -9,7 +9,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
                 <div class="sidebar-brand-icon ">
-                    <img src="../assets/img/logo4.jpg" width="40" height="40">
+                    <img src="../assets/img/logo4.png" width="40" height="40">
                 </div>
                 <div class="sidebar-brand-text mx-3">RS PIM <sup></sup></div>
             </a>
@@ -39,15 +39,61 @@
                         <i class="fas fa-fw fa-list"></i>
                         <span>Konfirmasi Status Pelamar</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?r=lihat_profile_admin/index">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Lihat Data Pelamar</span></a>
+                </li>
             <?php } ?>
 
             <?php if ($_SESSION['hak'] == "user") { ?>
 
-                <li class="nav-item">
+                <?php
+                $id_pengguna_login = $_SESSION['id']; // Ambil id dari sesi login
+
+                $query_select_profile = "SELECT * FROM tbl_profile WHERE id_pengguna = '$id_pengguna_login'";
+                $result_select_profile = mysqli_query(Connect(), $query_select_profile);
+
+                if ($result_select_profile) {
+                    // Periksa apakah ada data profile
+                    if (mysqli_num_rows($result_select_profile) > 0) {
+                        $data = mysqli_fetch_assoc($result_select_profile);
+
+                        // Periksa jika status sudah ada dan status = 1, maka tampilkan menu
+                        if (isset($data['status']) && $data['status'] == 2) {
+                ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="?r=profile/index">
+                                    <i class="fas fa-fw fa-chart-area"></i>
+                                    <span>Profile</span>
+                                </a>
+                            </li>
+                        <?php
+                        }
+                    } else {
+                        // Tampilkan menu jika data profile belum ada
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?r=profile/index">
+                                <i class="fas fa-fw fa-chart-area"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                <?php
+                    }
+                }
+                ?>
+
+
+
+
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="?r=profile/index">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Profile</span></a>
-                </li>
+                        <span>Profile</span>
+                    </a>
+                </li> -->
+
                 <li class="nav-item">
                     <a class="nav-link" href="?r=lihat_profile/index">
                         <i class="fas fa-fw fa-chart-area"></i>

@@ -33,8 +33,9 @@
           <h4>Kontak Kami</h4>
           <p>
             Jl. Singgalang No. 1 Komplek Perumahan PT. PIM Krueng Geukeuh Kab. Aceh Utara.
+            <br>
             <strong>Phone:</strong> 082272628796<br>
-            <strong>Email:</strong> info@simpesa.com<br>
+            <strong>Email:</strong> .go.id<br>
           </p>
         </div>
 

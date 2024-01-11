@@ -42,6 +42,7 @@ $one = GetOne($id_pendaftaran);
           <select class="form-control" id="status" name="status">
             <option value="2">Diterima</option>
             <option value="3">Ditolak</option>
+            <option value="4">Lolos Berkas</option>
           </select>
         </div>
 

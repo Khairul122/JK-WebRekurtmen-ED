@@ -105,7 +105,7 @@ if (!empty($id_lowongan)) {
 
                 <div class="form-group">
                     <label for="IPK">IPK</label>
-                    <input type="number" class="form-control" id="IPK" name='IPK'>
+                    <input type="text" class="form-control" id="IPK" name='IPK'>
                 </div>
 
             <?php } ?>

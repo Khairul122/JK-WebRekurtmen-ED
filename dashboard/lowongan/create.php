@@ -19,6 +19,10 @@ require_once 'func.php';
         <label for="bidang">Bidang</label>
         <input type="text" class="form-control" id="bidang" name='bidang' placeholder='Bidang'>
       </div>
+      <div class="form-group pt-3">
+        <label for="kuota">Kuota</label>
+        <input type="number" class="form-control" id="kuota" name='kuota' placeholder='kuota'>
+      </div>
       <div class="form-group">
         <label for="valid_until">Valid Until</label>
         <input type="date" class="form-control" id="valid_until" name='valid_until'>

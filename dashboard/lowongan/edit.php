@@ -24,6 +24,11 @@ $one = GetOne($id_lowongan);
           <input type="text" class="form-control" id="bidang" name='bidang' value="<?php echo $data['bidang']; ?>">
         </div>
 
+        <div class="form-group pt-3">
+          <label for="kuota">Kuota</label>
+          <input type="number" class="form-control" id="kuota" name='kuota' value="<?php echo $data['kuota']; ?>">
+        </div>
+
         <div class="form-group">
           <label for="valid_until">Valid Until</label>
           <input type="date" class="form-control" id="valid_until" name='valid_until' value="<?php echo $data['valid_until']; ?>">
