@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Jan 2024 pada 19.10
+-- Waktu pembuatan: 16 Jan 2024 pada 10.43
 -- Versi server: 10.4.14-MariaDB
 -- Versi PHP: 7.4.10
 
@@ -142,6 +142,27 @@ CREATE TABLE `rencana_usaha` (
 
 INSERT INTO `rencana_usaha` (`id`, `modal`, `saham`, `jumlah_tenaga_kerja`, `nilai_produksi`, `nilai_investasi`) VALUES
 (51, 2000, 200, 200, 200, 200);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_berita`
+--
+
+CREATE TABLE `tbl_berita` (
+  `id` int(11) NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `keterangan` text DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tbl_berita`
+--
+
+INSERT INTO `tbl_berita` (`id`, `judul`, `keterangan`, `foto`, `tanggal`) VALUES
+(2, 'tes', 'tes', 'f1.png', '2024-01-16');
 
 -- --------------------------------------------------------
 
@@ -388,6 +409,12 @@ ALTER TABLE `rencana_usaha`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `tbl_berita`
+--
+ALTER TABLE `tbl_berita`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `tbl_datadiri`
 --
 ALTER TABLE `tbl_datadiri`
@@ -452,6 +479,12 @@ ALTER TABLE `pengguna`
 --
 ALTER TABLE `produk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `tbl_berita`
+--
+ALTER TABLE `tbl_berita`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_datadiri`
