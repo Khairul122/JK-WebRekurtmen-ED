@@ -14,11 +14,12 @@ session_start();
 <h3>Lihat Profile</h3>
 
 <div class="input-group mb-3 pt-3">
-  <div class="input-group-prepend">
+  <input type="text" class="form" id="searchInput" placeholder="Cari berdasarkan nama atau umur" aria-label="Cari" aria-describedby="basic-addon1">
+  <div class="input-group-append">
     <button class="btn btn-primary btn-lg" type="button" onclick="search()">Cari</button>
   </div>
-  <input type="text" class="form" id="searchInput" placeholder="Cari berdasarkan nama atau umur" aria-label="Cari" aria-describedby="basic-addon1">
 </div>
+
 
 <div class="table-responsive custom-scrollbar pt-3">
   <table class='table table-bordered table-sm'>

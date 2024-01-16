@@ -10,7 +10,7 @@
 <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="text-center">
         <h1>Selamat Anda Boleh Mengikuti Tahap Selanjutnya</h1>
-        <a href="#" class="btn btn-primary btn-lg">Silahkan Klik</a>
+        <a href="https://www.ptprime.id/" class="btn btn-primary btn-lg">Silahkan Klik</a>
     </div>
 </div>
 

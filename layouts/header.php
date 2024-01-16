@@ -17,6 +17,27 @@ function GetAll()
   }
   return $datas;
 }
+
+function GetAllBerita()
+{
+  $query = "SELECT * FROM tbl_berita";
+  $exe = mysqli_query(Connect(), $query);
+
+  $datas = array(); // Inisialisasi array kosong
+
+  while ($data = mysqli_fetch_array($exe)) {
+    $datas[] = array(
+      'id' => $data['id'],
+      'judul' => $data['judul'],
+      'keterangan' => $data['keterangan'],
+      'foto' => $data['foto'],
+      'tanggal' => $data['tanggal']
+    );
+  }
+
+  return $datas;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +65,7 @@ function GetAll()
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -114,7 +136,52 @@ function GetAll()
             Di Rumah Sakit Prima Inti Medika, kami menyediakan berbagai layanan medis yang komprehensif. Mulai dari pelayanan rawat jalan, perawatan rawat inap, hingga layanan gawat darurat, kami siap memberikan perawatan yang tepat dan responsif sesuai dengan kebutuhan Anda</h4>
         </div>
       </div>
-    </section><!-- End About Section -->
+    </section>
+    <!-- End About Section -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about">
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h3 class="font-weight-bold text-warning">Berita</h3>
+        </header>
+
+        <?php
+$datas = GetAllBerita();
+
+// Periksa apakah ada data
+if (!empty($datas)) {
+    foreach ($datas as $data) {
+        // Tampilkan data dalam card
+?>
+        <div class="container-sm">
+            <div class="card" style="width: 18rem;">
+                <!-- Gunakan nilai kolom 'foto' sebagai path gambar -->
+                <img class="card-img-top" src='assets/img/berita/<?php echo $data['foto']; ?>' alt='Foto Berita'>
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $data['judul']; ?></h5>
+                    <p class="card-text"><?php echo $data['keterangan']; ?></p>
+                </div>
+                <div class="card-footer text-muted">
+                    <?php echo date('d-m-Y', strtotime($data['tanggal'])); ?>
+                </div>
+            </div>
+        </div>
+<?php
+    }
+} else {
+    echo "Tidak ada data berita yang tersedia.";
+}
+?>
+
+
+
+
+      </div>
+    </section>
+
+    <!-- End About Section -->
 
     <div class="container" data-aos="fade-up" style="padding-top: 100px;">
       <div class='table-responsive'>
